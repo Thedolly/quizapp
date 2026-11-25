@@ -1,5 +1,7 @@
 package com.monolithic.quizapp.controller;
 
+import com.monolithic.quizapp.service.QuizService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("quiz")
 public class QuizController {
 
+    @Autowired
+    QuizService quizService;
+
     @PostMapping("create")
-    public ResponseEntity<String> create(@RequestParam String category, @RequestParam int numQ, @RequestParam String question){
-        return new ResponseEntity<>("working", HttpStatus.OK);
+    public ResponseEntity<String> create(@RequestParam String category, @RequestParam int numQ, @RequestParam String questionTitle){
+        return quizService.createQuiz(category, numQ, questionTitle);
     }
 }
